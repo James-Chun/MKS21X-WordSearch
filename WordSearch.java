@@ -86,6 +86,29 @@ public class WordSearch{
      *or there are overlapping letters that do not match, then false is returned.
      *and the board is NOT modified.
      */
-    //public boolean addWordVertical(String word,int row, int col){
-    //}
+    public boolean addWordVertical(String word,int row, int col){
+      char[][] ifThingsGoWrong = data;           //If things go bad, set data back to this
+      String temp = word;
+      int place = 0;                             //Keep track of which char in temp we are looking at
+      if (row+word.length() <= data.length){   //See if the word will fit in the col
+
+        for (int i=row;i<temp.length() + row ;i++){
+
+          if ( data[i][col] == '_' || Character.toString( data[i][col] ).equals( temp.substring (place,place+1) ) ) { //If current place at row is empty then all is good, or if place is same as char at word
+            data[i][col]=temp.charAt(place);    //Change spot row and move place up one
+            place++;
+          }else{
+            data=ifThingsGoWrong; //If
+            return false;
+          }
+
+        }
+        return true;
+      }
+
+      data=ifThingsGoWrong;
+      return false;
+    }
+
+
 }
