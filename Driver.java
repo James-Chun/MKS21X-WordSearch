@@ -14,10 +14,11 @@ public class Driver{
     System.out.println(n);
 
     System.out.println("~ ~ These Tests See If Nothing Happens When (Mismatched) OverLapping Words Occur Or When Desired Word Is Too Large ~ ~");
-    System.out.println("~ Should Return False 3x and Grid with Just \"hi\" and \"X\" ~");
+    System.out.println("~ Should Return 2 True and 2 False and Grid with Just \"hin\" and \"X\" ~");
     System.out.println(n.addWordHorizontal("X",2,0));
+    System.out.println(n.addWordHorizontal("in",0,1));
     System.out.println(n.addWordHorizontal("food",1,0));
     System.out.println(n.addWordHorizontal("REE",2,0));
-    System.out.println(n);
+    System.out.println("\n"+n);
   }
 }
