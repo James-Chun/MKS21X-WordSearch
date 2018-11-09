@@ -32,5 +32,18 @@ public class Driver{
     System.out.println(n2.addWordVertical("fe",2,1));
     System.out.println(n2.addWordVertical("dy",3,1));
     System.out.println("\n"+n2);
+
+    System.out.println("\n~ ~ ~ TESTING addWordDiagonal ~ ~ ~");
+    System.out.println("~ ~ Should Return Diagonal \"food\" Starting From Top Left Corner ~ ~ ");
+    WordSearch n3 = new WordSearch(5,5);
+    n3.addWordDiagonal("food",0,0);
+    System.out.println("\n"+n3);
+
+    System.out.println("~ ~ Should Return \"toes\" and \"feat\" Connected At The \"e\" At (2,2) ~ ~ "); //made another WordSearch
+    WordSearch n4 = new WordSearch(5,5);
+    n4.addWordHorizontal("feat",2,1);
+    n4.addWordDiagonal("toes",0,0);
+    System.out.println(n4);
+
   }
 }

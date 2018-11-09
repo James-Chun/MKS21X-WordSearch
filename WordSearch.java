@@ -110,5 +110,41 @@ public class WordSearch{
       return false;
     }
 
+    /**Attempts to add a given word to the specified position of the WordGrid.
+    *The word is added from top left to bottom right, must fit on the WordGrid,
+    *and must have a corresponding letter to match any letters that it overlaps.
+    *
+    *@param word is any text to be added to the word grid.
+    *@param row is the vertical locaiton of where you want the word to start.
+    *@param col is the horizontal location of where you want the word to start.
+    *@return true when the word is added successfully. When the word doesn't fit,
+    *or there are overlapping letters that do not match, then false is returned.
+    */
+   public boolean addWordDiagonal(String word,int row, int col){
+     char[][] ifThingsGoWrong = data;           //If things go bad, set data back to this
+     String temp = word;
+     int place = 0;                             //Keep track of which char in temp we are looking at
+     int colplace = col;
+     if (row+word.length() <= data.length && col+word.length() <= data[row].length){   //See if the word will fit in the col
+
+       for (int rowplace=row;rowplace<temp.length() + row ;rowplace++){
+
+         if ( data[rowplace][colplace] == '_' || Character.toString( data[rowplace][colplace] ).equals( temp.substring (place,place+1) ) ) { //If current place at row is empty then all is good, or if place is same as char at word
+           data[rowplace][colplace]=temp.charAt(place);    //Change spot row and move place up one
+           colplace ++;
+           place++;
+         }else{
+           data=ifThingsGoWrong; //If
+           return false;
+         }
+
+       }
+       return true;
+     }
+
+     data=ifThingsGoWrong;
+     return false;
+   }
+
 
 }
