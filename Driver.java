@@ -22,10 +22,8 @@ public class Driver{
     System.out.println("\n"+n);
 
     System.out.println("\n~ ~ ~ TESTING addWordVertical ~ ~ ~");
-    
     WordSearch n2 = new WordSearch(5,5);
-    
-    System.out.println("\n~ Should print \"food\" in second column on 4x4 grid");
+    System.out.println("\n~ Should print \"food\" in second column");
     n2.addWordVertical("food",0,1);
     System.out.print(n2);
 
