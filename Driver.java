@@ -1,5 +1,6 @@
 public class Driver{
   public static void main(String[] arg){
+    /* STAGE ONE CODE
     WordSearch n = new WordSearch(3,3);
 
     System.out.println("~ ~ ~ TESTING toString AND CONSTRUCTORS ~ ~ ~");
@@ -44,6 +45,23 @@ public class Driver{
     n4.addWordHorizontal("feat",2,1);
     n4.addWordDiagonal("toes",0,0);
     System.out.println(n4);
+*/
+    WordSearch n = new WordSearch(5,5);
 
+    System.out.println("~ ~ ~TESTING addWord()~ ~ ~");
+    System.out.println("~ ~Should Print Empty 5x5 Grid");
+    System.out.println(n+"\n");
+
+    n.addWord("bye",0,0,1,1);
+    System.out.println("~ ~Should Print 5x5 Grid With \"bye\" From Top-Left In Diagonal And \"Words: bye\"~ ~");
+    System.out.println(n);
+
+    System.out.println("~ ~Same Grid With Diagonal \"bye\" And Backwards \"rye\" Cutting Through It");
+    n.addWord("rye",1,2,0,-1);
+    System.out.println(n);
+
+    System.out.println("~ ~Same Grid With \"dread\" Straight Down Column 2");
+    n.addWord("dread",0,2,1,0);
+    System.out.println(n);
   }
 }
