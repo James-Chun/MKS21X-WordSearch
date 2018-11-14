@@ -97,28 +97,26 @@ public class WordSearch{
 
 
    public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
-     char[][] temp= new char[row][col];
-     temp = data;
      int rowplace = row;
      int colplace = col;
-     if (Math.abs(rowIncrement+colIncrement)>0&&row+word.length()*rowIncrement>=-1 && row+word.length()*rowIncrement<=data.length && col+word.length()*colIncrement>=-1 && col+word.length()*colIncrement <=data[rowplace].length){   //See if the word will fit in the row
-
-       for (int i=0;i<word.length();i++){
-
-         if ( data[rowplace][colplace] == '_' || data[rowplace][colplace] == word.charAt(i) )  { //If current place at row is empty then all is good, or if place is same as char at word
-           data[rowplace][colplace] = word.charAt(i); //Change spot row
-           rowplace=rowplace+rowIncrement;
-           colplace=colplace+colIncrement;
-         }else{
-           data= temp;
-           return false;
-         }
-
-       }
-     }else{
-       data=temp;
+     if (!(Math.abs(rowIncrement+colIncrement)>0&&row+word.length()*rowIncrement>=-1 && row+word.length()*rowIncrement<=data.length && col+word.length()*colIncrement>=-1 && col+word.length()*colIncrement <=data[rowplace].length)){   //See if the word will fit in the row
        return false;
      }
+     for (int i=0;i<word.length();i++){
+         if ( !(data[rowplace][colplace] == '_' || data[rowplace][colplace] == word.charAt(i)) )  { //If current place at row is empty then all is good, or if place is same as char at word
+           return false;
+         }
+         rowplace=rowplace+rowIncrement;
+         colplace=colplace+colIncrement;
+       }
+      rowplace = row;
+      colplace = col;
+
+     for (int i=0;i<word.length();i++){
+          data[rowplace][colplace]=word.charAt(i);
+          rowplace=rowplace+rowIncrement;
+          colplace=colplace+colIncrement;
+        }
      wordsAdded.add(word);
      return true;
    }
