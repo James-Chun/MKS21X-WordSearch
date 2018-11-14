@@ -4,7 +4,6 @@ import java.util.Random;//random stuff
 
 public class WordSearch{
     private char[][]data;
-    private char[][]data2;
     //the random seed used to produce this WordSearch
     private int seed;
     //a random Object to unify your random calls
@@ -38,11 +37,22 @@ public class WordSearch{
       }
 
       wordsAdded = new ArrayList<>(0);
-      data2=data;
-    }
-/*
-    public WordSearch( int rows, int cols, String fileName, int randSeed){
 
+    }
+
+    public WordSearch( int rows, int cols, String fileName, int randSeed){
+      Random randgen = new Random(randSeed);
+      seed = (randgen.nextInt()%1000);
+      try{
+        woo(fileName);
+      }catch(FileNotFoundException e){}
+      data= new char[rows][cols];
+      for (int row = 0; row < data.length;row++){
+        for (int col = 0; col < data[row].length;col++){
+          data[row][col]='_';
+        }
+      }
+      wordsAdded = new ArrayList<>(0);
     }
 /*
     public WordSearch(int rows,int cols){
@@ -87,6 +97,8 @@ public class WordSearch{
 
 
    public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
+     char[][] temp= new char[row][col];
+     temp = data;
      int rowplace = row;
      int colplace = col;
      if (Math.abs(rowIncrement+colIncrement)>0&&row+word.length()*rowIncrement>=-1 && row+word.length()*rowIncrement<=data.length && col+word.length()*colIncrement>=-1 && col+word.length()*colIncrement <=data[rowplace].length){   //See if the word will fit in the row
@@ -98,13 +110,13 @@ public class WordSearch{
            rowplace=rowplace+rowIncrement;
            colplace=colplace+colIncrement;
          }else{
-           data= data2;
+           data= temp;
            return false;
          }
 
        }
      }else{
-       data=data2;
+       data=temp;
        return false;
      }
      wordsAdded.add(word);
