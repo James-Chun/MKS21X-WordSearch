@@ -13,53 +13,53 @@ public class WordSearch{
     //all words that were successfully added get moved into wordsAdded.
     private ArrayList<String>wordsAdded;
 
-    //opens file and adds words in it to wordsToAdd
-    private void woo(String fileName)throws FileNotFoundException{
-      File f = new File(fileName);//can combine
-      Scanner in = new Scanner(f);//into one line
-      while(in.hasNext()){
-        wordsToAdd.add(in.next());
-        }
-    }
     //Default constructor
     public WordSearch( int rows, int cols, String fileName){
       Random randgen = new Random(); //making random object
       seed = (randgen.nextInt() % 1000); //making seed from that randgen
-      try{woo(fileName);}catch(FileNotFoundException e){}
+      String word = "";
+      wordsToAdd = new ArrayList<String>(0);
+
+      try{
+        File f = new File(fileName);//can combine
+        Scanner in = new Scanner(f);//into one line
+        while(in.hasNext()){
+          word = in.next();
+          wordsToAdd.add(word);
+        };
+      }catch(FileNotFoundException e){System.out.println("File Not Found");}
+
       data = new char[rows][cols];
       for (int row = 0; row < data.length;row++){
         for (int col = 0; col < data[row].length;col++){
-          data[row][col]='_';
+          data[row][col]=' ';
         }
       }
       wordsAdded = new ArrayList<>(0);
     }
 
     public WordSearch( int rows, int cols, String fileName, int randSeed){
-      Random randgen = new Random(randSeed);
-      seed = (randgen.nextInt()%1000);
-      try{
-        woo(fileName);
-      }catch(FileNotFoundException e){}
+      seed = randSeed;
+      String word = "";
+      wordsToAdd = new ArrayList<String>(0);
+
+      try {
+        File f = new File(fileName);//can combine
+        Scanner in = new Scanner(f);//into one line
+        while(in.hasNext()){
+          word = in.next();
+          wordsToAdd.add(word);
+        };
+      }catch(FileNotFoundException e){System.out.println("File Not Found");}
+
       data= new char[rows][cols];
       for (int row = 0; row < data.length;row++){
         for (int col = 0; col < data[row].length;col++){
-          data[row][col]='_';
+          data[row][col]=' ';
         }
       }
       wordsAdded = new ArrayList<>(0);
     }
-/*  //Previous (simpler) Constructor
-    public WordSearch(int rows,int cols){
-      data = new char[rows][cols];
-      for (int row = 0; row < data.length;row++){
-        for (int col = 0; col < data[row].length;col++){
-          data[row][col]='_';
-        }
-      }
-      seed = 1111;
-      wordsAdded = new ArrayList<>(0);
-    }*/
 
     public String toString(){
       String s = "";
@@ -91,14 +91,14 @@ public class WordSearch{
 
 
 
-   public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
+   private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
      int rowplace = row;
      int colplace = col;
      if (!(Math.abs(rowIncrement+colIncrement)>0&&row+word.length()*rowIncrement>=-1 && row+word.length()*rowIncrement<=data.length && col+word.length()*colIncrement>=-1 && col+word.length()*colIncrement <=data[rowplace].length)){   //See if the word will fit in the row
        return false;
      }
      for (int i=0;i<word.length();i++){
-         if ( !(data[rowplace][colplace] == '_' || data[rowplace][colplace] == word.charAt(i)) )  { //If current place at row is empty then all is good, or if place is same as char at word
+         if ( !(data[rowplace][colplace] == ' ' || data[rowplace][colplace] == word.charAt(i)) )  { //If current place at row is empty then all is good, or if place is same as char at word
            return false;
          }
          rowplace=rowplace+rowIncrement;
@@ -116,14 +116,102 @@ public class WordSearch{
      return true;
    }
 
-   public void addAllWords(){
-     addWord(wordsToAdd.get(0),0,0,1,1);
+
+   private void addAllWords(){
+     randgen = new Random(seed);
+     int tries = 0; //how many attempts before changing up the direction
+     int index = Math.abs(randgen.nextInt()%wordsToAdd.size());//choosing a random index to get a random word from the file
+     String word = wordsToAdd.get(index);
+     while(wordsToAdd.size()>0&&tries<100){
+       int rowIncrement = randgen.nextInt()%2;//should give either -1,0,or 1
+       int colIncrement = randgen.nextInt()%2;//^^^
+
+       int row = Math.abs(randgen.nextInt()%(data.length-1));//choosing random start row
+       int col = Math.abs(randgen.nextInt()%(data[0].length-1));//choosing random start col
+
+       if (addWord(word,row,col,rowIncrement,colIncrement)){
+         tries = 0;
+         wordsAdded.add(wordsToAdd.remove(index));
+
+         if (wordsToAdd.size()!=0){
+           index = Math.abs(randgen.nextInt()%wordsToAdd.size());
+           word=wordsToAdd.get(index);
+         }
+       }else{
+         tries++;
+       }
+     }
+   }
+
+   private char randLetter(){
+     Random n = new Random();
+     String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+     return alpha.charAt(Math.abs(n.nextInt())%26);
+   }
+   private void fillSpaces(){
+     for (int row = 0; row < data.length;row++){
+       for (int col = 0; col < data[row].length;col++){
+         if (data[row][col]==' '){
+           data[row][col]=randLetter();
+         };
+       }
+     }
+   }
+
+   public static void main(String[] args){
+     if (args.length==5) {
+       if (args[4].equals("key")){
+       try{
+         WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2],Integer.parseInt(args[3]));
+         puzzle.addAllWords();
+         System.out.println(puzzle);
+       }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+        catch(ArithmeticException e){System.out.println("or File Is Empty");}
+     }else{
+       try{
+         WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2],Integer.parseInt(args[3]));
+         puzzle.addAllWords();
+         puzzle.fillSpaces();
+         System.out.println(puzzle);
+       }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+       catch(ArithmeticException e){System.out.println("or File Is Empty");}
+     }
+     }
+
+     if (args.length == 4){
+       if (args[3].equals("key")){
+       try{
+         WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2]);
+         puzzle.addAllWords();
+         System.out.println(puzzle);
+       }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+        catch(ArithmeticException e){System.out.println("or File Is Empty");}
+     }else{
+       try{
+         WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]));
+         puzzle.addAllWords();
+         puzzle.fillSpaces();
+         System.out.println(puzzle);
+       }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+        catch(ArithmeticException e){System.out.println("or File Is Empty");}
+     }
+     }
+     if (args.length==3){
+       try{
+        WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2]);
+        puzzle.addAllWords();
+        puzzle.fillSpaces();
+        System.out.println(puzzle);
+      }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+       catch(ArithmeticException e){System.out.println("or File Is Empty");}
+     }
+     if (args.length<=2){
+       System.out.print("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");
+     }
    }
 
 
-
-
-    public boolean addWordHorizontal(String word,int row, int col){
+   public boolean addWordHorizontal(String word,int row, int col){
       char[][] I = data;           //If things go bad, set data back to this
       String temp = word;
       int place = 0;                             //Keep track of which char in temp we are looking at
@@ -149,7 +237,7 @@ public class WordSearch{
     }
 
 
-    public boolean addWordVertical(String word,int row, int col){
+   public boolean addWordVertical(String word,int row, int col){
       char[][] I = data;           //If things go bad, set data back to this
       String temp = word;
       int place = 0;                             //Keep track of which char in temp we are looking at
@@ -200,7 +288,6 @@ public class WordSearch{
      data=I;
      return false;
    }
-
 
 
 
