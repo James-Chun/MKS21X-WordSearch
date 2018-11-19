@@ -59,6 +59,9 @@ public class WordSearch{
         }
       }
       wordsAdded = new ArrayList<>(0);
+      if (randSeed<0 || randSeed>10000){
+        throw new ArrayIndexOutOfBoundsException("Index Out of Bounds");
+      }
     }
 
     public String toString(){
@@ -165,8 +168,8 @@ public class WordSearch{
          WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2],Integer.parseInt(args[3]));
          puzzle.addAllWords();
          System.out.println(puzzle);
-       }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
-       catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       }catch (ArrayIndexOutOfBoundsException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive; randSeed Must Be Between 0 and 10000 Inclusive");}
+       catch(NegativeArraySizeException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
        catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
         catch(ArithmeticException e){System.out.println("or File Is Empty");}
      }else{
@@ -175,8 +178,8 @@ public class WordSearch{
          puzzle.addAllWords();
          puzzle.fillSpaces();
          System.out.println(puzzle);
-       }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
-       catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       }catch (ArrayIndexOutOfBoundsException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
+       catch(NegativeArraySizeException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
        catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
        catch(ArithmeticException e){System.out.println("or File Is Empty");}
      }
@@ -188,8 +191,8 @@ public class WordSearch{
          WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2]);
          puzzle.addAllWords();
          System.out.println(puzzle);
-       }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
-       catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       }catch (ArrayIndexOutOfBoundsException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
+       catch(NegativeArraySizeException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
        catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
         catch(ArithmeticException e){System.out.println("or File Is Empty");}
      }
@@ -198,8 +201,8 @@ public class WordSearch{
          puzzle.addAllWords();
          puzzle.fillSpaces();
          System.out.println(puzzle);
-       }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
-       catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       }catch (ArrayIndexOutOfBoundsException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
+       catch(NegativeArraySizeException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
        catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
         catch(ArithmeticException e){System.out.println("or File Is Empty");}
      }
@@ -209,8 +212,8 @@ public class WordSearch{
         puzzle.addAllWords();
         puzzle.fillSpaces();
         System.out.println(puzzle);
-      }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
-      catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+      }catch (ArrayIndexOutOfBoundsException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
+      catch(NegativeArraySizeException e){System.out.println("Row and Column Dimensions Must be Greater Than 0; randSeed Must Be Between 0 and 10000 Inclusive");}
       catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
        catch(ArithmeticException e){System.out.println("or File Is Empty");}
      }
