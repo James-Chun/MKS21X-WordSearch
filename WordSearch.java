@@ -16,7 +16,7 @@ public class WordSearch{
     //Default constructor
     public WordSearch( int rows, int cols, String fileName){
       Random randgen = new Random(); //making random object
-      seed = (randgen.nextInt() % 1000); //making seed from that randgen
+      seed = (Math.abs(randgen.nextInt() % 10000)); //making seed from that randgen
       String word = "";
       wordsToAdd = new ArrayList<String>(0);
 
@@ -165,7 +165,9 @@ public class WordSearch{
          WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2],Integer.parseInt(args[3]));
          puzzle.addAllWords();
          System.out.println(puzzle);
-       }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+       }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
         catch(ArithmeticException e){System.out.println("or File Is Empty");}
      }else{
        try{
@@ -173,7 +175,9 @@ public class WordSearch{
          puzzle.addAllWords();
          puzzle.fillSpaces();
          System.out.println(puzzle);
-       }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+       }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
        catch(ArithmeticException e){System.out.println("or File Is Empty");}
      }
      }
@@ -184,17 +188,20 @@ public class WordSearch{
          WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2]);
          puzzle.addAllWords();
          System.out.println(puzzle);
-       }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+       }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
         catch(ArithmeticException e){System.out.println("or File Is Empty");}
-     }else{
+     }
        try{
          WordSearch puzzle = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]));
          puzzle.addAllWords();
          puzzle.fillSpaces();
          System.out.println(puzzle);
-       }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+       }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+       catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
         catch(ArithmeticException e){System.out.println("or File Is Empty");}
-     }
      }
      if (args.length==3){
        try{
@@ -202,7 +209,9 @@ public class WordSearch{
         puzzle.addAllWords();
         puzzle.fillSpaces();
         System.out.println(puzzle);
-      }catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
+      }catch (ArrayIndexOutOfBoundsException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+      catch(NegativeArraySizeException e){System.out.println("ROW AND COLUMN DIMENSIONS MUST BE GREATER THAN 0");}
+      catch(IllegalArgumentException e){System.out.println("//ERROR// USE: java WordSearch [int rows, int cols, String filename, [int randomSeed], [String key]]");}
        catch(ArithmeticException e){System.out.println("or File Is Empty");}
      }
      if (args.length<=2){
